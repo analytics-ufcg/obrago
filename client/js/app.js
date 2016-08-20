@@ -1,6 +1,6 @@
-var app = angular.module('obrago', []);
+var app = angular.module('obrago', ['ngDialog']);
 
-app.controller('ConvenioCidadeController', ['$scope', function($scope){
+app.controller('ConvenioCidadeController', ['$scope', 'ngDialog', function($scope, ngDialog){
     $scope.temTabela = false;
 
     $scope.convenios = [];
@@ -23,6 +23,14 @@ app.controller('ConvenioCidadeController', ['$scope', function($scope){
     $scope.voltaLista = function(){
         $scope.temTabela = true;
         $scope.temDetalhe = false;
+    };
+
+    $scope.feedback = function(){
+        ngDialog.open({
+           template: 'view/feedback.html', 
+            className: 'ngdialog-theme-default',
+            controller: 'ConvenioCidadeController'
+        });
     };
 
 
