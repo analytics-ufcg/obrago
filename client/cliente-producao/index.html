@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Flat UI - Free Bootstrap Framework and Theme</title>
+    <meta name="description" content="Flat UI Kit Free is a Twitter Bootstrap Framework design and Theme, this responsive framework includes a PSD and HTML version."/>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Loading Bootstrap -->
+    <link href="dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-file-upload/2.3.4/angular-file-upload.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.2/js/ngDialog.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.2/css/ngDialog.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.2/css/ngDialog-theme-default.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.2/css/ngDialog-theme-plain.css" rel="stylesheet">
+
+    <script src="js/app.js"></script>
+    <!-- Loading Flat UI -->
+    <link href="dist/css/flat-ui.css" rel="stylesheet">
+    <link href="docs/assets/css/demo.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="dist/js/vendor/html5shiv.js"></script>
+      <script src="dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body ng-app="obrago" ng-controller="ConvenioCidadeController">
+    <div class="container-fluid">
+      <div class="demo-headline">
+        <h1 class="demo-logo">
+          <div class="logo"></div>
+          <small>Fiscalize as obras de sua cidade</small>
+        </h1>
+      </div> <!-- /demo-headline -->
+
+      <!-- Seleção da cidade -->
+      <div class="row">
+        <form>
+          <div class="col-md-1 col-md-offset-4 col-xs-3 col-xs-offset-1" style="margin-right: -10px">
+            <div class="form-group">
+              <select class="form-control" id="sel1">
+                <option>PB</option>
+                <option>PA</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2 col-xs-5">
+            <div class="form-group">
+              <select class="form-control" id="sel1">
+                <option>Campina Grande</option>
+                <option>PA</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-1 col-xs-3">
+            <a href="#fakelink" class="btn btn-block btn-md btn-success" ng-click="envia()">GO</a>
+          </div>
+        </form>
+      </div> <!-- /row - Seleção de cidade' -->
+
+      <div class="row demo-row" style="margin-top: 20px;">
+      </div> <!-- /row -->
+
+      <div class="lista-convenios" ng-hide="!temTabela">
+        <!--filtro de licitacao e convenios-->
+        <div class="row" style="margin-bottom: 20px;"> 
+          <div class="col-md-6 col-md-offset-5 col-xs-8 col-xs-offset-3">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary">Licitações</button>
+              <button type="button" class="btn btn-secondary">Obras</button>
+            </div>
+          </div>
+        </div>
+        <!-- lista dos convenios-->
+        <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+          <div class="todo">
+            <ul>
+
+              <li>
+                <div class="todo-icon fui-document"></div>
+                <div class="todo-content">
+                  <h4 class="todo-name">
+                    Compra de computadores para UFCG
+                  </h4>
+                  Data de ínicio: 20/03/2012'
+                </div>
+              </li>
+
+              <li ng-click="feedback()">
+                <div class="todo-icon fui-home"></div>
+                <div class="todo-content">
+                  <h4 class="todo-name">
+                    Construção do novo bloco do curso de Computação'
+                  </h4>
+                  Data de início: 10/05/2016
+                </div>
+              </li>
+              <li>
+                <div class="todo-icon fui-document"></div>
+                <div class="todo-content">
+                  <h4 class="todo-name">
+                    Compra de computadores para UFCG
+                  </h4>
+                  Data de ínicio: 20/03/2012'
+                </div>
+              </li>
+
+              <li>
+                <div class="todo-icon fui-home"></div>
+                <div class="todo-content">
+                  <h4 class="todo-name">
+                    Construção do novo bloco do curso de Computação
+                  </h4>
+                  Data de início: 10/05/2016
+                </div>
+              </li>
+            </ul>
+          </div><!-- /.todo -->
+        </div><!-- /.col-xs-4 -->
+      </div>
+      </div>
+
+      <!--detalhe de um convenio-->
+      <div class="row" ng-hide="!temDetalhe">
+        <div class="col-md-4 col-md-offset-4">
+          <h3 class="demo-panel-title">Detalhes do convênio</h3>
+          <div class="share mrl">
+            <div class="row" style="padding: 8px 20px;font-size: medium;">
+              <div class="col-md-3"><b>Objetivo:</b></div>
+              <div class="col-md-8">Construção do novo bloco do curso de Computação</div>
+            </div>
+            <div class="row" style="padding: 0 20px; font-size: medium;">
+              <div class="col-md-3"><b>Empresa:</b></div>
+              <div class="col-md-8">Ministério da Educação</div>
+            </div>
+            <div class="row" style="padding: 0 20px; font-size: medium;">
+              <div class="col-md-3"><b>Prazo:</b></div>
+              <div class="col-md-8">10/05/2019</div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 col-md-offset-4">
+                <h2 style="font-size: medium; font-weight: bold; color: #069;">Fiscalizações</h2 style="font-size: medium; font-weight: bold; color: #069;">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5 col-md-offset-1">
+                <dl class="palette palette-midnight-blue">
+                  <dt>Envie</dt>
+                  <dd><small>Foto da obra</small></dd>
+                </dl>
+              </div>
+              <div class="col-md-5">
+                <dl class="palette palette-belize-hole">
+                  <dt>10 pessoas</dt>
+                  <dd><small>Já fiscalizaram</small></dd>
+                </dl>
+              </div>
+            </div>
+            <div class="row" style="padding: 0 20px; font-size: medium;">
+
+            </div>
+            <a href="#" class="btn btn-primary btn-block btn-large" style="margin-top:10px">Fiscalizar</a>
+          </div> <!-- /share -->
+        </div><!-- /.col-xs-3 -->
+      </div>
+      
+
+    
+
+    <script src="dist/js/vendor/jquery.min.js"></script>
+    <script src="dist/js/flat-ui.min.js"></script>
+    <script src="docs/assets/js/application.js"></script>
+
+  </body>
+</html>

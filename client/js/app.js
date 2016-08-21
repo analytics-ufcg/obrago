@@ -1,9 +1,10 @@
-var app = angular.module('obrago', ['ngDialog']);
+var app = angular.module('obrago', ['ngDialog', 'angularFileUpload']);
 
-app.controller('ConvenioCidadeController', ['$scope', 'ngDialog', '$http', function($scope, ngDialog, $http){
+app.controller('ConvenioCidadeController', ['$scope', 'ngDialog', '$http', 'FileUploader', function($scope, ngDialog, $http, FileUploader){
 
     $scope.dadosMunicipio = [];
     $scope.dadosFederais = [];
+    $scope.uploader = new FileUploader();
 
     (function main() {
         $http.get('dados_producao/federal-cg-tratado.json').then(function(dados){

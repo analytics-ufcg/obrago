@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <form>
+        <div class="row">
+            <label for="situacao"><b>Situação da obra<b></label>
+        </div>
+        <div class="row">
+                <label class="radio-inline">
+                <input type="radio" name="optradio" ng-model="dados.status" value="1"><small>Não começou</small>
+                </label>
+                <label class="radio-inline">
+                <input type="radio" name="optradio" ng-model="dados.status" value="2"><small>Construindo</small>
+                </label>
+                <label class="radio-inline">
+                <input type="radio" name="optradio" ng-model="dados.status" value="3"><small>Parada</small>
+                </label>
+                <label class="radio-inline">
+                <input type="radio" name="optradio" ng-model="dados.status" value="4"><small>Concluida</small>
+                </label>
+        </div>
+        <div class="row">
+            <label for="descricao"><b>Fale sobre a situação da obra</b></label>
+        </div>
+        <div class="row">
+            <div class="form-group">
+            <textarea class="form-control" rows="5" id="descricao" ng-model="dados.texto"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <label for="foto"><b>Envie uma URL de imagem da obra<b></label>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <input type="text" class="form-control" id="usr" ng-model="dados.url">
+            </div>
+        </div>
+        <p class="text-success" ng-hide="!msgSucesso">Feedback enviado com sucesso!</p>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-8">
+                <a href="#fakelink" class="btn btn-block btn-xs btn-success" ng-click="enviaFeedback(dados)">Enviar</a>
+            </div>
+        </div>
+    </form>
+</div>

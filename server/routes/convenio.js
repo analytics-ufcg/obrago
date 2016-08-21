@@ -1,6 +1,12 @@
 var express = require('express');
 var fs = require('fs');
 var router = express.Router();
+var multer = require('multer');
+
+var uploading = multer({
+  dest: __dirname + '../fotos/',
+  limits: {fileSize: 1000000, files:1}
+})
 
 Object.prototype.renameProperty = function (oldName, newName) {
      // Do nothing if the names are the same
@@ -23,13 +29,28 @@ router.get('/', function(req, res){
             console.log(err);
             res.status(500).end();
         }else{
-            JSON.parse(municipal).forEach(function(el){convenios.push(el);});
+            municipal = JSON.parse(municipal);
+            municipal.forEach(function(el){
+                el.renameProperty('objeto', 'objetivo');
+                el.renameProperty('regCge', 'id');
+                el.origem = "municipal";
+                convenios.push(el);
+            });
+            fs.r
             fs.readFile('model/federal-cg-tratado.json', function(err, federal){
                 if (err){
                     console.log(err);
                     res.status(500).end();
                 }else{
-                    JSON.parse(federal).forEach(function(el){convenios.push(el);});
+                    federal = JSON.parse(federal);
+                    federal.filter(function(el){
+                            return !el.situacaoConvenio.includes('Anulado');
+                    });
+                    federal.forEach(function(el){
+                        el.renameProperty('numero', 'id');
+                        el.origem = "federal";
+                        convenios.push(el);
+                    });
                     res.json(convenios);
                 }
             });
@@ -38,17 +59,64 @@ router.get('/', function(req, res){
 });
 
 router.get('/:id', function(req, res){
-    var singleConvenio = {
-        regCge: "16-80811-8",
-        numero: "0331/2016",
-        orgao: "SEE - 22.0001 - SECRETARIA DE ESTADO DA EDUCAÇÃO",
-        convenente: "FUNDAÇÃO DE APOIO A PESQUISA DO ESTADO DA PARAÍBA",
-        dataCelebracao: "1/8/2016",
-        dataPublicacao: "4/8/2016",
-        objetivo: "DESENVOLVER KITS DE ENSINO E APLICAÇÃO A SEREM UTILIZADOS EM ESCOLAS DE ENSINO MÉDIO DO ESTADO DA PARAÍBA",
-        valorTotal: "18.000"
+    fs.readFile('model/municipal-cg.json', function(err, municipal){
+        var convenio = false;
+        if (err){
+            console.log(err);
+            res.status(500).end();
+        }else{
+            municipal = JSON.parse(municipal);
+            municipal.forEach(function(el){
+                el.renameProperty('objeto', 'objetivo');
+                el.renameProperty('regCge', 'id');
+                el.origem = "municipal";
+                if (el.id == req.params.id){
+                    convenio = el;
+                }
+            });
+            fs.readFile('model/federal-cg-tratado.json', function(err, federal){
+                if (err){
+                    console.log(err);
+                    res.status(500).end();
+                }else{
+                    federal = JSON.parse(federal);
+                    federal.filter(function(el){
+                            return !el.situacaoConvenio.includes('Anulado');
+                    });
+                    federal.forEach(function(el){
+                        el.renameProperty('numero', 'id');
+                        el.origem = "federal";
+                        if (el.id == req.params.id){
+                            convenio = el;
+                        }
+                    });
+                    if (!convenio) return res.status(404).end();
+                    res.json(convenio);
+                }
+            });
+        }
+    });
+});
+
+router.post('/feedback', uploading, function(req, res){
+    var feedback = {
+        status: req.body.status,
+        descricao: req.body.descricao,
+        url: req.body.url
     };
-    res.json(singleConvenio);
+    fs.readFile('dados/feedback.json', 'utf8', function(err, data){
+        var todos = JSON.parse(data);
+        todos.push(feedback);
+        fs.writeFiles('dados/feedback.json', JSON.stringify(todos), function(err, data){
+            if (err) {
+                console.log(err);
+                res.status(500).end();
+            }else{
+                res.status(201).json(feedback);
+            }
+        });
+    });
+
 });
 
 module.exports = router;
