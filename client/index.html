@@ -58,8 +58,14 @@
     </style>
     <!-- Bootstrap -->
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.1/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.2/js/ngDialog.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.2/css/ngDialog.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.2/css/ngDialog-theme-default.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.6.2/css/ngDialog-theme-plain.css" rel="stylesheet">
+    
+
     <script src="js/app.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -120,7 +126,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="conv in convenios">
+                    <tr ng-repeat="conv in dadosFederais">
                     <td class="col-md-8" ng-click="especifica(conv.regCge)">{{ conv.objetivo }}</td>
                     <td class="col-md-4" ng-click="especifica(conv.regCge)">{{ conv.convenente }}</td>
                     </tr>
@@ -159,7 +165,7 @@
                     </tbody>
                   </table>
                   
-                  <a href="#" class="btn btn-primary">Enviar avaliação</a>
+                  <a href="#" class="btn btn-primary" ng-click="feedback()">Fiscalizar</a>
                   <a href="#" ng-click="voltaLista()"class="btn btn-warning">Voltar</a>
                 </div>
               </div>
