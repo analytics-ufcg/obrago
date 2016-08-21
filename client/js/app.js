@@ -1,6 +1,18 @@
 var app = angular.module('obrago', ['ngDialog']);
 
-app.controller('ConvenioCidadeController', ['$scope', 'ngDialog', function($scope, ngDialog){
+app.controller('ConvenioCidadeController', ['$scope', 'ngDialog', '$http', function($scope, ngDialog, $http){
+
+    $scope.dadosMunicipio = [];
+    $scope.dadosFederais = [];
+
+    (function main() {
+        $http.get('dados_producao/federal-cg-tratado.json').then(function(dados){
+            $scope.dadosFederais = dados.data;
+        }, function(err){
+            console.err(err);
+        });
+    })();
+
     $scope.temTabela = false;
 
     $scope.convenios = [];
